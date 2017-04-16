@@ -1,5 +1,8 @@
 -r requirements.txt
 
+# Generate data
+model_mommy
+
 # Test tools
 isort
 flake8
