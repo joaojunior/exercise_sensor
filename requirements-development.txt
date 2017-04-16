@@ -2,6 +2,7 @@
 
 # Test tools
 isort
+flake8
 coverage
 nose
 yanc
