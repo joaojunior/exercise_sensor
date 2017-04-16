@@ -1,6 +1,7 @@
 -r requirements.txt
 
 # Test tools
+isort
 coverage
 nose
 yanc
