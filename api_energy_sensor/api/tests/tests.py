@@ -3,8 +3,6 @@ import json
 
 from django.test import TestCase
 
-from api.models import SensorRecord
-
 
 class TestApi(TestCase):
     def setUp(self):
@@ -38,12 +36,3 @@ class TestApi(TestCase):
         self.assertEqual(201, response.status_code)
         expected = {'id': 1, 'device_id': 1}
         self.assertEqual(expected, response.json())
-
-    def test_verify_if_is_possible_insert_all_records_from_example(self):
-        with open(self.name_file_example, 'r') as f:
-            for record in f.readlines():
-                response = self.client.post('/api/add_sensor_record/',
-                                            json.dumps({'record': record}),
-                                            content_type='application/json')
-                self.assertEqual(201, response.status_code)
-        self.assertEqual(1000, SensorRecord.objects.count())
