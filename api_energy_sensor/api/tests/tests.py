@@ -48,23 +48,33 @@ class TestStatsSGBDEmpty(TestCase):
         expected = {}
         self.assertEqual(expected, response.json())
 
+    def test_power_active_average_in_each_cluster(self):
+        response = self.client.get('/api/average_power_active_by_cluster/')
+        expected = {}
+        self.assertEqual(expected, response.json())
+
 
 class TestStats(TestCase):
     def setUp(self):
         # create data group 1
-        mommy.make(SensorRecord, cluster_label=1)
-        mommy.make(SensorRecord, cluster_label=1)
+        mommy.make(SensorRecord, cluster_label=1, power_active=10)
+        mommy.make(SensorRecord, cluster_label=1, power_active=15)
         # create data group 2
-        mommy.make(SensorRecord, cluster_label=2)
-        mommy.make(SensorRecord, cluster_label=2)
-        mommy.make(SensorRecord, cluster_label=2)
+        mommy.make(SensorRecord, cluster_label=2, power_active=9)
+        mommy.make(SensorRecord, cluster_label=2, power_active=6)
+        mommy.make(SensorRecord, cluster_label=2, power_active=15)
         # create data group 3
-        mommy.make(SensorRecord, cluster_label=3)
-        mommy.make(SensorRecord, cluster_label=3)
-        mommy.make(SensorRecord, cluster_label=3)
-        mommy.make(SensorRecord, cluster_label=3)
+        mommy.make(SensorRecord, cluster_label=3, power_active=0)
+        mommy.make(SensorRecord, cluster_label=3, power_active=0)
+        mommy.make(SensorRecord, cluster_label=3, power_active=0)
+        mommy.make(SensorRecord, cluster_label=3, power_active=0)
 
     def test_number_events_in_each_cluster(self):
         response = self.client.get('/api/number_events_by_cluster/')
         expected = {'1': 2, '2': 3, '3': 4}
+        self.assertEqual(expected, response.json())
+
+    def test_power_active_average_in_each_cluster(self):
+        response = self.client.get('/api/average_power_active_by_cluster/')
+        expected = {'1': 12.5, '2': 10, '3': 0}
         self.assertEqual(expected, response.json())

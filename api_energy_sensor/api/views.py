@@ -1,4 +1,4 @@
-from django.db.models import Count
+from django.db.models import Count, Avg
 from restless.dj import DjangoResource
 from restless.preparers import FieldsPreparer
 
@@ -36,4 +36,14 @@ class NumberEvents(DjangoResource):
             qty=Count('cluster_label'))
         for group in count:
             result[group['cluster_label']] = group['qty']
+        return result
+
+
+class PowerActive(DjangoResource):
+    def detail(self):
+        result = {}
+        count = SensorRecord.objects.values('cluster_label').annotate(
+            average=(Avg('power_active')))
+        for group in count:
+            result[group['cluster_label']] = group['average']
         return result
