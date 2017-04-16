@@ -1,8 +1,7 @@
-import unittest
 import os
+import unittest
 
-
-from sensor_parser.parser import parser_sensor2dict, InputError, FieldError
+from sensor_parser.parser import FieldError, InputError, parser_sensor2dict
 
 
 class TestParser(unittest.TestCase):
