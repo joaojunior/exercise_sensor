@@ -7,7 +7,7 @@ cache:
 sudo: true
 
 env:
-    TOX_ENV=py34,py35,py36
+    TOX_ENV=py34,py35
 
 install:
   - pip install -r requirements-development.txt
