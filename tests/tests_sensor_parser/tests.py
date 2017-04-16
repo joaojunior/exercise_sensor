@@ -2,7 +2,7 @@ import unittest
 import os
 
 
-from sensor_parser.parser import parser_sensor2dict, InputError
+from sensor_parser.parser import parser_sensor2dict, InputError, FieldError
 
 
 class TestParser(unittest.TestCase):
@@ -10,6 +10,7 @@ class TestParser(unittest.TestCase):
         path = os.path.abspath(__file__)
         path = os.path.dirname(path)
         self.name_file = os.path.join(path, 'data/sensor_data.txt')
+        self.name_file_error = os.path.join(path, 'data/sensor_data_error.txt')
 
     def test_parser_record_ok(self):
         expect = {'device_id': '1', 'fw': '16071801', 'evt': '2',
@@ -30,7 +31,6 @@ class TestParser(unittest.TestCase):
                   'fft_img_7': '963', 'fft_img_8': '33',
                   'fft_img_9': '462', 'time': '2016-10-4 16:47:50',
                   'hz': '49.87', 'wifi_strength': '-62', 'dummy': '20'}
-        record = ''
         with open(self.name_file, 'r') as f:
             record = f.readline()
         self.assertEqual(expect, parser_sensor2dict(record))
@@ -43,4 +43,10 @@ class TestParser(unittest.TestCase):
     def test_parser_record_empty(self):
         record = ''
         with self.assertRaises(InputError):
+            parser_sensor2dict(record)
+
+    def test_field_in_record_is_incorrect(self):
+        with open(self.name_file_error, 'r') as f:
+            record = f.readline()
+        with self.assertRaises(FieldError):
             parser_sensor2dict(record)
