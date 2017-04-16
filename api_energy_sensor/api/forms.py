@@ -6,4 +6,4 @@ from api.models import SensorRecord
 class SensorRecordForm(ModelForm):
     class Meta:
         model = SensorRecord
-        exclude = []
+        exclude = ['cluster_label']

@@ -44,3 +44,4 @@ class SensorRecord(models.Model):
     hz = models.FloatField()
     wifi_strength = models.FloatField()
     dummy = models.FloatField()
+    cluster_label = models.IntegerField(default=0)
