@@ -1,13 +1,15 @@
 from restless.dj import DjangoResource
 from restless.preparers import FieldsPreparer
 
-
 from sensor_parser.parser import parser_sensor2dict
+
+from api.forms import SensorRecordForm
 
 
 class ApiResource(DjangoResource):
     preparer = FieldsPreparer(fields={
-            'record': 'record',
+            'id': 'id',
+            'device_id': 'device_id',
         })
 
     def is_authenticated(self):
@@ -20,3 +22,6 @@ class ApiResource(DjangoResource):
     def create(self):
         record = self.data['record']
         record = parser_sensor2dict(record)
+        form = SensorRecordForm(record)
+        record = form.save()
+        return record
