@@ -87,3 +87,5 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+api_energy_sensor/db.sqlite3
