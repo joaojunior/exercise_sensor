@@ -41,6 +41,17 @@ class TestApi(TestCase):
         expected = {'id': 1, 'device_id': 1}
         self.assertEqual(expected, response.json())
 
+    def test_send_all_examples(self):
+        with open(self.name_file_example, 'r') as f:
+            for record in f.readlines():
+                response = self.client.post('/api/add_sensor_record/',
+                                            json.dumps({'record': record}),
+                                            content_type='application/json')
+                self.assertEqual(201, response.status_code)
+        self.assertEqual(1000, SensorRecord.objects.count())
+        self.assertTrue(SensorRecord.objects.filter(cluster_label=0).count()
+                        < 1000)
+
 
 class TestStatsSGBDEmpty(TestCase):
     def test_number_events_in_each_cluster(self):
