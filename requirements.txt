@@ -1,1 +1,3 @@
 -e .
+django==1.11
+restless
