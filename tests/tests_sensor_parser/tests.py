@@ -50,3 +50,9 @@ class TestParser(unittest.TestCase):
             record = f.readline()
         with self.assertRaises(FieldError):
             parser_sensor2dict(record)
+
+    def test_record_is_not_str(self):
+        with self.assertRaises(InputError):
+            for t in [list, int, float, tuple, dict]:
+                record = t()
+                parser_sensor2dict(record)
