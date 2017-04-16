@@ -1,6 +1,15 @@
 import re
 
 
+class Error(Exception):
+    pass
+
+
+class InputError(Error):
+    def __init__(self):
+        self.message = 'The record is incorrect'
+
+
 def parser_sensor2dict(record):
     result = {}
     regex_number = re.compile('(-?\d+[.]\d+|-?\d+)')
@@ -19,10 +28,13 @@ def parser_sensor2dict(record):
         fields[idx] = (field, regex_number)
     fields[3] = ('coil_revesed', regex_string)
     fields[38] = ('time', regex_string)
-    record = record.replace(',', '.')
-    record = record.split(';')
-    for idx, (field, regex) in enumerate(fields):
-        value = regex.findall(record[idx])
-        if len(value) > 0:
-            result[field] = value[0]
+    try:
+        record = record.replace(',', '.')
+        record = record.split(';')
+        for idx, (field, regex) in enumerate(fields):
+            value = regex.findall(record[idx])
+            if len(value) > 0:
+                result[field] = value[0]
+    except:
+        raise InputError
     return result

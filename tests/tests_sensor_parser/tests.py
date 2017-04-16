@@ -2,7 +2,7 @@ import unittest
 import os
 
 
-from sensor_parser.parser import parser_sensor2dict
+from sensor_parser.parser import parser_sensor2dict, InputError
 
 
 class TestParser(unittest.TestCase):
@@ -34,3 +34,13 @@ class TestParser(unittest.TestCase):
         with open(self.name_file, 'r') as f:
             record = f.readline()
         self.assertEqual(expect, parser_sensor2dict(record))
+
+    def test_parser_record_size_incorrect(self):
+        record = 'Device: ID=1; Fw=16071801'
+        with self.assertRaises(InputError):
+            parser_sensor2dict(record)
+
+    def test_parser_record_empty(self):
+        record = ''
+        with self.assertRaises(InputError):
+            parser_sensor2dict(record)
