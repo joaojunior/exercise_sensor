@@ -7,13 +7,14 @@ cache:
 sudo: true
 
 env:
-    TOX_ENV=py34,py35
+    TOX_ENV=py34,py35,py36
 
 install:
   - pip install -r requirements-development.txt
 
 script:
   - make clean
+  - make quality
   - tox -e $TOX_ENV
 
 notifications:
