@@ -14,5 +14,8 @@ clean:
 requirements:
 	pip install -r requirements.txt
 
-run: clean requirements
+sgbd:
+	cd api_energy_sensor && python manage.py makemigrations && python manage.py migrate
+
+run: clean requirements sgbd
 	gunicorn api_energy_sensor.wsgi --chdir api_energy_sensor/
