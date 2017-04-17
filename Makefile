@@ -10,3 +10,9 @@ clean:
 	find -regex '.*~' -exec rm {} \;
 	rm -rf MANIFEST dist build *.egg-info
 	rm -rf .tox
+
+requirements:
+	pip install -r requirements.txt
+
+run: clean requirements
+	gunicorn api_energy_sensor.wsgi --chdir api_energy_sensor/

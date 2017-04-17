@@ -4,3 +4,4 @@ restless
 numpy
 scipy
 sklearn
+gunicorn
