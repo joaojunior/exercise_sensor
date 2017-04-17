@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/joaojunior/exercise_sensor.svg?branch=master)](https://travis-ci.org/joaojunior/exercise_sensor)
+
 # Introduction
 
 This is a exercise in a job interview.
