@@ -3,7 +3,7 @@
 # Introduction
 
 This is a exercise in a job interview.
-Section Definition, Clustering and, Your task is part of document send by company.  
+Section Definition, Clustering and, Your task is part of document send by company.
 
 # Definition
 You have installed an energy sensor in your house, and when you took a look at the events it
@@ -14,7 +14,7 @@ Device: ID=1; Fw=16071801; Evt=2; Alarms: CoilRevesed=OFF; Power: Active=1753W; 
 These events, although really dirty and unintuitive, provide useful electrical information that you
 want to use in a simple Machine Learning application that relies on what is called Clustering.
 Power includes the three different power values the sensor can measure, transients are also
-called peaks, and calculated by Fast Fourier Transforms are the the harmonics, which are
+called peaks, and calculated by Fast Fourier Transforms are the  harmonics, which are
 complex numbers. Powers, transients, harmonics and all other measured values are vastly
 documented in the literature.
 
@@ -51,7 +51,7 @@ Feel free to divide this task and create as many services as you think appropria
 The solution have two main parts: 1) The library to parser an record to a dictionary python and 2) An api rest.
 
 The api rest have three urls:
-- `/api/add_sensor_record/`: This url receive a record, in format explain above, try to parser and save data. This url only accept post. If is possible parser the data and save in database, this url return a `status_code: 201` and a json with `id` and `device_id` of the new record. If any problem happens when try to parser a specific field in a record, this url return a `status_code: 500` and a json with name of the field with error. For any other errors, this url return a `status_code: 500` 
+- `/api/add_sensor_record/`: This url receive a record, in format explain above, try to parser and save data. This url only accept post. If is possible parser the data and save in database, this url return a `status_code: 201` and a json with `id` and `device_id` of the new record. If any problem happens when try to parser a specific field in a record, this url return a `status_code: 500` and a json with name of the field with error. For any other errors, this url return a `status_code: 500`
 - `/api/number_events_by_cluster/`: This url return the number of events in each cluster. This url only accept get. The return of this url is a json where a key is a label of the cluster and the value is the quantity of records in this cluster.
 - `/api/average_power_active_by_cluster/`: This url return the average power active in each cluster. This url only accept get. The return of this url is a json where a key is a label of the cluster and the value is the average of power active in this cluster.
 
